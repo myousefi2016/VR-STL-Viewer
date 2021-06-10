@@ -1,35 +1,19 @@
 ﻿#include "VR-STL-Viewer.h"
 
-#include "vtkCamera.h"
-#include "vtkRenderer.h"
-#include "vtkOpenGLRenderWindow.h"
 #include "vtkActor.h"
 #include "vtkOpenGLPolyDataMapper.h"
 #include "vtkOpenGLVertexBufferObject.h"
 #include "vtkSTLReader.h"
 #include "vtkNew.h"
-#include "vtkProperty.h"
-
-#include "vtkRegressionTestImage.h"
-#include "vtkTestUtilities.h"
-
-#include "vtkRenderWindowInteractor.h"
-
-#include "vtkOpenGLRenderWindow.h"
 
 #include "vtkOpenVRCamera.h"
 #include "vtkCullerCollection.h"
-#include "vtkTransform.h"
-
-#include "vtkPlaneWidget.h"
 
 #include "vtkOpenVRRenderer.h"
 #include "vtkOpenVRCamera.h"
 #include "vtkOpenVRRenderWindow.h"
 #include "vtkOpenVRRenderWindowInteractor.h"
 
-#include "vtkWin32RenderWindowInteractor.h"
-#include "vtkWin32OpenGLRenderWindow.h"
 #include <string>
 
 //----------------------------------------------------------------------------
@@ -70,12 +54,8 @@ int main(int argc, char* argv[])
 		renderer->ResetCamera();
 		renderWindow->Render();
 
-		int retVal = vtkRegressionTestImage(renderWindow.Get());
-		if (retVal == vtkRegressionTester::DO_INTERACTOR)
-		{
-			iren->Start();
-		}
-		return !retVal;
+		renderWindow.Get();
+		iren->Start();
 	}
 	return EXIT_SUCCESS;
 }
