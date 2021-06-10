@@ -1,20 +1,5 @@
 ﻿#include "VR-STL-Viewer.h"
 
-#include "vtkActor.h"
-#include "vtkPolyDataMapper.h"
-#include "vtkSTLReader.h"
-#include "vtkNew.h"
-
-#include "vtkCullerCollection.h"
-
-#include "vtkOpenVRRenderer.h"
-#include "vtkOpenVRCamera.h"
-#include "vtkOpenVRRenderWindow.h"
-#include "vtkOpenVRRenderWindowInteractor.h"
-
-#include <string>
-
-//----------------------------------------------------------------------------
 int main(int argc, char* argv[])
 {
 	vtkNew<vtkOpenVRRenderer> renderer;

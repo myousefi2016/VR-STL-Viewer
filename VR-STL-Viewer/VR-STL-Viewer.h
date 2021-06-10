@@ -4,5 +4,16 @@
 #pragma once
 
 #include <iostream>
+#include "vtkActor.h"
+#include "vtkPolyDataMapper.h"
+#include "vtkSTLReader.h"
+#include "vtkNew.h"
+
+#include "vtkCullerCollection.h"
+
+#include "vtkOpenVRRenderer.h"
+#include "vtkOpenVRCamera.h"
+#include "vtkOpenVRRenderWindow.h"
+#include "vtkOpenVRRenderWindowInteractor.h"
 
 // TODO: Reference additional headers your program requires here.
