@@ -1,12 +1,10 @@
 ﻿#include "VR-STL-Viewer.h"
 
 #include "vtkActor.h"
-#include "vtkOpenGLPolyDataMapper.h"
-#include "vtkOpenGLVertexBufferObject.h"
+#include "vtkPolyDataMapper.h"
 #include "vtkSTLReader.h"
 #include "vtkNew.h"
 
-#include "vtkOpenVRCamera.h"
 #include "vtkCullerCollection.h"
 
 #include "vtkOpenVRRenderer.h"
@@ -42,12 +40,10 @@ int main(int argc, char* argv[])
 	vtkNew<vtkSTLReader> reader;
 	reader->SetFileName(fileName);
 
-	vtkNew<vtkOpenGLPolyDataMapper> mapper;
+	vtkNew<vtkPolyDataMapper> mapper;
 	mapper->SetInputConnection(reader->GetOutputPort());
-	mapper->SetVBOShiftScaleMethod(vtkOpenGLVertexBufferObject::AUTO_SHIFT_SCALE);
 	actor->SetMapper(mapper.Get());
 
-	// the HMD may not be turned on/etc
 	renderWindow->Initialize();
 	if (renderWindow->GetHMD())
 	{
