@@ -11,3 +11,7 @@ This code creates a [STL (3D triangular mesh)](https://en.wikipedia.org/wiki/STL
 This code is tested on a machine that has Windows 10 with Visual Studio 2019 and SteamVR installed that is connected to a HTC Vive VR headset. If you encountered any problem or issue, please open an issue in this repository. If you use this piece of code in your work, please give proper citation and attribution to this repository.
 
 https://user-images.githubusercontent.com/22246708/121732338-1e8caf00-cac0-11eb-9557-74c5592f2c67.mp4
+
+
+https://user-images.githubusercontent.com/22246708/121741446-8cd76e80-cacc-11eb-8021-e1d0befbab0d.mp4
+
