@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
     label = new QLabel("File Path",this);
     txt = new QTextEdit;
     mesh = new Mesh();
-	renderer = new Renderer();
+    renderer = new Renderer();
 
     line->show();
     btn->show();
