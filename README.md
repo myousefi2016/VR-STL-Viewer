@@ -12,7 +12,7 @@ This code is tested on a machine that has Windows 10 with Visual Studio 2019 and
 
 ## Using binary pre-built package
 
-If you don't want to build this code, you can use the binary pre-built install package for Windows 10 that is provided in **Release** section of this repository. Note that you need to install Qt >=6 and put the correct path in your environment variables. For example put `C:\Qt\6.2.0\msvc2019_64\bin` into your environment variable and then you should be able to use the software.
+If you don't want to build this code, you can use the binary pre-built install package for Windows 10 that is provided in [**Release**](https://github.com/myousefi2016/VR-STL-Viewer/releases/download/1.0/VR.STL.Viewer.msi) section of this repository. Note that you need to install Qt >=6 and put the correct path in your environment variables. For example put `C:\Qt\6.2.0\msvc2019_64\bin` into your environment variable and then you should be able to use the software.
 
 https://user-images.githubusercontent.com/22246708/121732338-1e8caf00-cac0-11eb-9557-74c5592f2c67.mp4
 
