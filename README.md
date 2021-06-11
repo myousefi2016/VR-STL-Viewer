@@ -10,6 +10,10 @@ This code creates a [STL (3D triangular mesh)](https://en.wikipedia.org/wiki/STL
 
 This code is tested on a machine that has Windows 10 with Visual Studio 2019 and SteamVR installed that is connected to a HTC Vive VR headset. If you encountered any problem or issue, please open an issue in this repository. If you use this piece of code in your work, please give proper citation and attribution to this repository.
 
+## Using binary pre-built package
+
+If you don't want to build this code, you can use the binary pre-built install package for Windows 10 that is provided in **Release** section of this repository. Note that you need to install Qt >=6 and put the correct path in your environment variables. For example put `C:\Qt\6.2.0\msvc2019_64\bin` into your environment variable and then you should be able to use the software.
+
 https://user-images.githubusercontent.com/22246708/121732338-1e8caf00-cac0-11eb-9557-74c5592f2c67.mp4
 
 
