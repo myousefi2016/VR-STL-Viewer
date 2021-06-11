@@ -16,4 +16,6 @@
 #include "vtkOpenVRRenderWindow.h"
 #include "vtkOpenVRRenderWindowInteractor.h"
 
+extern int vrRendering(const char* fileName);
+
 // TODO: Reference additional headers your program requires here.

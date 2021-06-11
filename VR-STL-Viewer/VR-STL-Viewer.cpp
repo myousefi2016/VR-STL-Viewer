@@ -1,6 +1,6 @@
 ﻿#include "VR-STL-Viewer.h"
 
-int main(int argc, char* argv[])
+int vrRendering(const char* fileName)
 {
 	vtkNew<vtkOpenVRRenderer> renderer;
 	vtkNew<vtkOpenVRRenderWindow> renderWindow;
@@ -21,7 +21,6 @@ int main(int argc, char* argv[])
 
 	renderer->RemoveCuller(renderer->GetCullers()->GetLastItem());
 
-	char* fileName = argv[1];
 	vtkNew<vtkSTLReader> reader;
 	reader->SetFileName(fileName);
 
