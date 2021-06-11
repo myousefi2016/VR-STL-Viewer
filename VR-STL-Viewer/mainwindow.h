@@ -14,6 +14,7 @@
 #include <string>
 #include <iostream>
 #include "mesh.h"
+#include "vrviewer.h"
 
 namespace Ui {
     class MainWindow;
@@ -35,6 +36,7 @@ public:
     QLabel * label;
     QTextEdit * txt;
     Mesh* mesh;
+	Renderer* renderer;
 private slots:
     void open();
 

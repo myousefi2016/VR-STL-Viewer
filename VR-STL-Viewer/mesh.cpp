@@ -206,7 +206,7 @@ bool Mesh::findDuplicateTriangles()
 
 bool Mesh::findNonManifoldEdges()
 {
-    Mesh::createEdgesArray();
+    this->createEdgesArray();
 
     int total=0;
     for(auto &e : edges)

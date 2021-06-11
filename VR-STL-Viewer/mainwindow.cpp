@@ -3,7 +3,6 @@
 #include <QString>
 #include <QFileDialog>
 #include <QVBoxLayout>
-#include "VR-STL-Viewer.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -18,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
     label = new QLabel("File Path",this);
     txt = new QTextEdit;
     mesh = new Mesh();
+	renderer = new Renderer();
 
     line->show();
     btn->show();
@@ -97,5 +97,6 @@ void MainWindow::open()
        txt->insertPlainText(QString("Flipped Normals Not Found!\n"));
        txt->setTextCursor(prev_cursor);
    }
-   vrRendering(fnameString.c_str());
+   renderer->SetFilePath(fnameString.c_str());
+   renderer->Render();
 }

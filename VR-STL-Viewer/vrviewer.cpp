@@ -1,14 +1,19 @@
-﻿#include "VR-STL-Viewer.h"
+﻿#include "vrviewer.h"
 
-int vrRendering(const char* fileName)
+Renderer::Renderer()
 {
-	vtkNew<vtkOpenVRRenderer> renderer;
-	vtkNew<vtkOpenVRRenderWindow> renderWindow;
-	vtkNew<vtkOpenVRRenderWindowInteractor>  iren;
-	vtkNew<vtkOpenVRCamera> cam;
+
+}
+
+Renderer::~Renderer()
+{
+	delete[] filepath;
+}
+
+void Renderer::Render()
+{
 	renderer->SetShowFloor(false);
 
-	vtkNew<vtkActor> actor;
 	renderer->SetBackground(0.0, 0.0, 0.0);
 	renderWindow->AddRenderer(renderer.Get());
 	renderer->AddActor(actor.Get());
@@ -21,10 +26,8 @@ int vrRendering(const char* fileName)
 
 	renderer->RemoveCuller(renderer->GetCullers()->GetLastItem());
 
-	vtkNew<vtkSTLReader> reader;
-	reader->SetFileName(fileName);
+	reader->SetFileName(filepath);
 
-	vtkNew<vtkPolyDataMapper> mapper;
 	mapper->SetInputConnection(reader->GetOutputPort());
 	actor->SetMapper(mapper.Get());
 
@@ -37,5 +40,4 @@ int vrRendering(const char* fileName)
 		renderWindow.Get();
 		iren->Start();
 	}
-	return EXIT_SUCCESS;
 }
