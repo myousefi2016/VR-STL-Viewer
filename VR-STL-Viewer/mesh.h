@@ -8,6 +8,7 @@
 #include <unordered_set>
 #include <cmath>
 #include "utilities.h"
+#include "vtkByteSwap.h"
 
 class Mesh
 {
@@ -26,18 +27,38 @@ public:
         filepath = fp;
     }
 
-    void readASCIISTLFile();
-    void readBinarySTLFile();
+    std::unordered_set<triangle> GetFacets()
+    {
+        return facets;
+    }
+
+    std::unordered_set<vec3d> GetPoints()
+    {
+        return points;
+    }
+
+    std::unordered_set<edge> GetEdges()
+    {
+        return edges;
+    }
+
     void readSTLFile();
-    void createEdgesArray();
+    void writeSTLFile();
     bool findNonManifoldEdges();
     bool findFlippedTriangles();
 private:
+    void readASCIISTLFile();
+    void readBinarySTLFile();
+    void writeASCIISTLFile();
+    void writeBinarySTLFile();
+    void createEdgesArray();
     const char* filepath;
     std::string STL_filetype;
     std::unordered_set<triangle> facets;
     std::unordered_set<vec3d> points;
     std::unordered_set<edge> edges;
+    const char* STLWriterDefaultHeader = "3D mesh cleaner generated SLA File";
+    const static int STLWriterBinaryHeaderSize = 68;
 };
 
 #endif // MESH_H

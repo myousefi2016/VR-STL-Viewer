@@ -10,6 +10,130 @@ Mesh::~Mesh()
     delete[] filepath;
 }
 
+void Mesh::writeSTLFile()
+{
+    if (STL_filetype == "ascii")
+    {
+        writeASCIISTLFile();
+    }
+
+    if (STL_filetype == "binary")
+    {
+        writeBinarySTLFile();
+    }
+}
+
+void Mesh::writeBinarySTLFile()
+{
+    FILE* fp;
+    vec3d dn, v1, v2, v3;
+    unsigned short ibuff2 = 0;
+    float n[3];
+
+    fp = fopen(filepath, "wb");
+
+    char binaryFileHeader[STLWriterBinaryHeaderSize + 1] = { 0 };
+
+    strncpy(binaryFileHeader, STLWriterDefaultHeader, STLWriterBinaryHeaderSize);
+
+    fwrite(binaryFileHeader, 1, STLWriterBinaryHeaderSize, fp);
+
+    unsigned long numTris = facets.size();
+    fwrite(&numTris, 1, 4, fp);
+
+    for (auto &tri : facets)
+    {
+        v1 = tri.points[0];
+        v2 = tri.points[1];
+        v3 = tri.points[2];
+
+        dn = tri.normal;
+        n[0] = (float)dn.x;
+        n[1] = (float)dn.y;
+        n[2] = (float)dn.z;
+        vtkByteSwap::Swap4LE(n);
+        vtkByteSwap::Swap4LE(n+1);
+        vtkByteSwap::Swap4LE(n+2);
+        fwrite(n, 4, 3, fp);
+
+        n[0] = (float)v1.x;
+        n[1] = (float)v1.y;
+        n[2] = (float)v1.z;
+        vtkByteSwap::Swap4LE(n);
+        vtkByteSwap::Swap4LE(n + 1);
+        vtkByteSwap::Swap4LE(n + 2);
+        fwrite(n, 4, 3, fp);
+
+        n[0] = (float)v2.x;
+        n[1] = (float)v2.y;
+        n[2] = (float)v2.z;
+        vtkByteSwap::Swap4LE(n);
+        vtkByteSwap::Swap4LE(n + 1);
+        vtkByteSwap::Swap4LE(n + 2);
+        fwrite(n, 4, 3, fp);
+
+        n[0] = (float)v3.x;
+        n[1] = (float)v3.y;
+        n[2] = (float)v3.z;
+        vtkByteSwap::Swap4LE(n);
+        vtkByteSwap::Swap4LE(n + 1);
+        vtkByteSwap::Swap4LE(n + 2);
+        fwrite(n, 4, 3, fp);
+
+        fwrite(&ibuff2, 2, 1, fp);
+    }
+
+    vtkByteSwap::Swap4LE(&numTris);
+    fseek(fp, 80, SEEK_SET);
+    fwrite(&numTris, 1, 4, fp);
+
+    if (fflush(fp))
+    {
+        fclose(fp);
+    }
+    fclose(fp);
+}
+
+void Mesh::writeASCIISTLFile()
+{
+    FILE* fp;
+    vec3d n, v1, v2, v3;
+
+    fp = fopen(filepath, "w");
+
+    fprintf(fp, "solid ");
+    fprintf(fp, "%s", STLWriterDefaultHeader);
+    fprintf(fp, "\n");
+
+    constexpr int max_double_digits = std::numeric_limits<double>::max_digits10;
+
+    for (auto &tri : facets)
+    {
+        v1 = tri.points[0];
+        v2 = tri.points[1];
+        v3 = tri.points[2];
+
+        n = tri.normal;
+
+        fprintf(fp, " facet normal %.*g %.*g %.*g\n  outer loop\n", max_double_digits, n.x,
+            max_double_digits, n.y, max_double_digits, n.z);
+        fprintf(fp, "   vertex %.*g %.*g %.*g\n", max_double_digits, v1.x, max_double_digits, v1.y,
+            max_double_digits, v1.z);
+        fprintf(fp, "   vertex %.*g %.*g %.*g\n", max_double_digits, v2.x, max_double_digits, v2.y,
+            max_double_digits, v2.z);
+        fprintf(fp, "   vertex %.*g %.*g %.*g\n", max_double_digits, v3.x, max_double_digits, v3.y,
+            max_double_digits, v3.z);
+        fprintf(fp, "  endloop\n endfacet\n");
+    }
+
+    fprintf(fp, "endsolid\n");
+    if (fflush(fp))
+    {
+        fclose(fp);
+    }
+    fclose(fp);
+}
+
 void Mesh::readSTLFile()
 {
     FILE* fp = fopen(filepath, "rb");

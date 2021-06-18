@@ -89,6 +89,8 @@ void MainWindow::open()
        txt->insertPlainText(QString("Flipped Normals Not Found!\n"));
        txt->setTextCursor(prev_cursor);
    }
+
+   mesh->writeSTLFile();
 }
 
 void MainWindow::click()
