@@ -1,6 +1,6 @@
 # VR-STL-Viewer
 
-This code creates a [STL (3D triangular mesh)](https://en.wikipedia.org/wiki/STL_(file_format)) in virtual reality environment. Furthermore, there are pure C++ built-in features that are able to find non-manifold edges, duplicate triangles, and flipped normals in your 3D triangular mesh. Note that you need to use STL format file that is written in **ASCII** format (Now binary STL is supported in this current version). The dependencies that are needed to build this code are:
+This code creates a [STL (3D triangular mesh)](https://en.wikipedia.org/wiki/STL_(file_format)) in virtual reality environment. Furthermore, there are pure C++ built-in features that are able to find non-manifold edges, duplicate triangles, and flipped normals in your 3D triangular mesh. Note that you need to use STL format file that is written in **ASCII** and **Binary** format (Now binary STL is supported in this current version). The dependencies that are needed to build this code are:
 * CMake >=3.8.
 * C++ compiler such as GCC, CLang, Visual C++, etc. (Note that this code is currently tested on a machine with Windows 10 and Visual Studio 2019 installed in it).
 * OpenVR SDK.
