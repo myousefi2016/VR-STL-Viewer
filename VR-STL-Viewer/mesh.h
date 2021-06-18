@@ -5,10 +5,9 @@
 #include <string>
 #include <fstream>
 #include <vector>
+#include <unordered_set>
 #include <cmath>
-#include <set>
 #include "utilities.h"
-#include "sortedtriple.h"
 
 class Mesh
 {
@@ -27,17 +26,18 @@ public:
         filepath = fp;
     }
 
+    void readASCIISTLFile();
+    void readBinarySTLFile();
     void readSTLFile();
     void createEdgesArray();
-    bool findDuplicateTriangles();
     bool findNonManifoldEdges();
     bool findFlippedTriangles();
 private:
     const char* filepath;
-    std::vector<triangle> facet;
-    std::vector<triangle> cleanedFacet;
-    std::vector<vec3d> points;
-    std::vector<edge> edges;
+    std::string STL_filetype;
+    std::unordered_set<triangle> facets;
+    std::unordered_set<vec3d> points;
+    std::unordered_set<edge> edges;
 };
 
 #endif // MESH_H

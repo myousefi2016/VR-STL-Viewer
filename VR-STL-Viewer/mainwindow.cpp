@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     win = new QWidget;
     btn = new QPushButton("Choose STL File",this);
+    clck = new QPushButton("Send 3D Mesh to VR",this);
     layout = new QVBoxLayout;
     cl = new QHBoxLayout;
     line = new QLineEdit(this);
@@ -21,9 +22,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     line->show();
     btn->show();
+    clck->show();
     txt->show();
 
     layout->addWidget(btn);
+    layout->addWidget(clck);
     layout->addLayout(cl);
     cl->addWidget(label);
     cl->addWidget(line);
@@ -35,6 +38,7 @@ MainWindow::MainWindow(QWidget *parent) :
     MainWindow::setWindowTitle("3D Surface Mesh Cleaner");
 
     QObject::connect(btn, SIGNAL(clicked()), this, SLOT(open()));
+    QObject::connect(clck, SIGNAL(clicked()), this, SLOT(click()));
 }
 
 MainWindow::~MainWindow()
@@ -59,18 +63,6 @@ void MainWindow::open()
    mesh->SetFilePath(fnameString.c_str());
    mesh->readSTLFile();
    QTextCursor prev_cursor = txt->textCursor();
-   if (mesh->findDuplicateTriangles())
-   {
-       txt->moveCursor(QTextCursor::End);
-       txt->insertPlainText(QString("Duplicate Triangle Found!\n"));
-       txt->setTextCursor(prev_cursor);
-   }
-   else
-   {
-       txt->moveCursor(QTextCursor::End);
-       txt->insertPlainText(QString("Duplicate Triangle Not Found!\n"));
-       txt->setTextCursor(prev_cursor);
-   }
 
    if (mesh->findNonManifoldEdges())
    {
@@ -97,6 +89,11 @@ void MainWindow::open()
        txt->insertPlainText(QString("Flipped Normals Not Found!\n"));
        txt->setTextCursor(prev_cursor);
    }
-   renderer->SetFilePath(fnameString.c_str());
-   renderer->Render();
+}
+
+void MainWindow::click()
+{
+    std::string fnameString = QString(fname).toLocal8Bit().constData();
+    renderer->SetFilePath(fnameString.c_str());
+    renderer->Render();
 }

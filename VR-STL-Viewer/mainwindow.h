@@ -28,6 +28,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     QPushButton * btn;
+    QPushButton * clck;
     QLineEdit * line;
     QVBoxLayout * layout;
     QHBoxLayout * cl;
@@ -39,6 +40,7 @@ public:
 	Renderer* renderer;
 private slots:
     void open();
+    void click();
 
 private:
     Ui::MainWindow *ui;
