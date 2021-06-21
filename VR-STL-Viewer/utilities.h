@@ -5,6 +5,9 @@
 #include <algorithm>
 #include <cmath>
 #include <iostream>
+#include <cassert>
+
+#define assertm(exp, msg) assert(((void)msg, exp))
 
 struct vec3d
 {
@@ -122,6 +125,8 @@ public:
 
     bool operator ^ (const edge& e) const
     {
+        assert(*this == e);
+
         if ((v1 == e.v1) && (v2 == e.v2))
         {
             return false;
