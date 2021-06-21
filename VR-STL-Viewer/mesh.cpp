@@ -488,7 +488,13 @@ bool Mesh::findFlippedTriangles()
             if (!(ePairs[0] ^ ePairs[1]))
             {
                 total++;
+                iterator = facets.find(triPairs[0]);
+                const triangle& foundTri = *iterator;
+                edge& eFound = *std::find(foundTri.edges, foundTri.edges + 3, ePairs[0]);
+                edges.erase(ePairs[0]);
                 ePairs[0] = -ePairs[0];
+                eFound = ePairs[0];
+                edges.insert(ePairs[0]);
             }
             else
             {
@@ -508,7 +514,7 @@ bool Mesh::findFlippedTriangles()
                     {
                         if (triPairs[it].points[j] == ePairs[it].v2)
                         {
-                            if (j < 1)
+                            if (j < 2)
                             {
                                 p1 = triPairs[it].points[j];
                                 p2 = triPairs[it].points[j + 1];
