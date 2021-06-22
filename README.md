@@ -14,6 +14,16 @@ This code is tested on a machine that has Windows 10 with Visual Studio 2019 and
 
 If you don't want to build this code, you can use the binary pre-built install package for Windows 10 that is provided in [**Release**](https://github.com/myousefi2016/VR-STL-Viewer/releases/download/1.0/VR.STL.Viewer.msi) section of this repository. Note that you need to install Qt >=6 and put the correct path in your environment variables. For example put `C:\Qt\6.2.0\msvc2019_64\bin` into your environment variable and then you should be able to use the software.
 
+## Benchmark
+
+In order to observe how the mesh cleaner to remove the duplicate triangles, identify the flipped normals and non-manifold edges would be scaled by increasing the number of triangles in the 3D mesh, a benchmark for a 3D mesh of a turbine blade is done here, where its topology remained the same but the number of meshes are decimated from 1M to 100K and the runtime of 3D mesh cleaner part is measured in second and plotted here:
+
+![benchmark](https://user-images.githubusercontent.com/22246708/122986708-c5e5cd80-d36d-11eb-9fde-6f92165a34c1.png)
+
+We see that there is an exponential scaling of the runtime vs. the number of triangles in the 3D mesh due to increased number of collisions in the hash function defined in `utilities.h` for `triangle` and `edge` classes.
+
+## VR Viewer in *action*
+
 https://user-images.githubusercontent.com/22246708/121732338-1e8caf00-cac0-11eb-9557-74c5592f2c67.mp4
 
 
