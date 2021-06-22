@@ -20,6 +20,15 @@ In order to observe how the mesh cleaner to remove the duplicate triangles, iden
 
 ![benchmark](https://user-images.githubusercontent.com/22246708/122986708-c5e5cd80-d36d-11eb-9fde-6f92165a34c1.png)
 
+| Number of Triangles |	Runtime (s) |
+| ---- | ---- |
+| 176519 | 12.588 |
+| 353062 | 20.633 |
+| 529606 |	78.559 |
+| 706148 | 286.66199 |
+| 882692 | 759.71002 |
+| 1059230 | 1208.44604 |
+
 We see that there is an exponential scaling of the runtime vs. the number of triangles in the 3D mesh due to increased number of collisions in the hash function defined in `utilities.h` for `triangle` and `edge` classes.
 
 ## VR Viewer in *action*
