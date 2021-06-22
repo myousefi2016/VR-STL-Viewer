@@ -28,12 +28,13 @@ void Mesh::writeBinarySTLFile()
     std::string s = filepath;
     std::string delimiter = ".";
     std::string token = s.substr(0, s.find(delimiter));
-    std::string filepathcleaned = token + "-cleaned.stl";
+    std::string filepathcleanedStr = token + "-cleaned.stl";
+    filepathcleaned = filepathcleanedStr.c_str();
     FILE* fp;
     vec3d dn, v1, v2, v3;
     unsigned short ibuff2 = 0;
 
-    fp = fopen(filepathcleaned.c_str(), "wb");
+    fp = fopen(filepathcleaned, "wb");
 
     char binaryFileHeader[STLWriterBinaryHeaderSize + 1] = { 0 };
 
@@ -105,11 +106,12 @@ void Mesh::writeASCIISTLFile()
     std::string s = filepath;
     std::string delimiter = ".";
     std::string token = s.substr(0, s.find(delimiter));
-    std::string filepathcleaned = token + "-cleaned.stl";
+    std::string filepathcleanedStr = token + "-cleaned.stl";
+    filepathcleaned = filepathcleanedStr.c_str();
     FILE* fp;
     vec3d n, v1, v2, v3;
 
-    fp = fopen(filepathcleaned.c_str(), "w");
+    fp = fopen(filepathcleaned, "w");
 
     fprintf(fp, "solid ");
     fprintf(fp, "%s", STLWriterDefaultHeader);

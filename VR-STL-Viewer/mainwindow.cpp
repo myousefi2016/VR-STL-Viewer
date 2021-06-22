@@ -91,11 +91,13 @@ void MainWindow::open()
    }
 
    mesh->writeSTLFile();
+   const char* filepathcleaned = mesh->GetFilePathCleaned();
+   fnamecleaned = QString(filepathcleaned);
 }
 
 void MainWindow::click()
 {
-    std::string fnameString = QString(fname).toLocal8Bit().constData();
+    std::string fnameString = QString(fnamecleaned).toLocal8Bit().constData();
     renderer->SetFilePath(fnameString.c_str());
     renderer->Render();
 }

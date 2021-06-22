@@ -27,6 +27,11 @@ public:
         filepath = fp;
     }
 
+    const char* GetFilePathCleaned()
+    {
+        return filepathcleaned;
+    }
+
     std::unordered_set<triangle> GetFacets()
     {
         return facets;
@@ -53,6 +58,7 @@ private:
     void writeBinarySTLFile();
     void createEdgesArray();
     const char* filepath;
+    const char* filepathcleaned;
     std::string STL_filetype;
     std::unordered_set<triangle> facets;
     std::unordered_set<vec3d> points;

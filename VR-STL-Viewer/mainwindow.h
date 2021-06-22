@@ -33,6 +33,7 @@ public:
     QVBoxLayout * layout;
     QHBoxLayout * cl;
     QString fname;
+    QString fnamecleaned;
     QWidget * win;
     QLabel * label;
     QTextEdit * txt;
