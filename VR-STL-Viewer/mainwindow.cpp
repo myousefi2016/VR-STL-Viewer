@@ -93,6 +93,8 @@ void MainWindow::open()
    mesh->writeSTLFile();
    const char* filepathcleaned = mesh->GetFilePathCleaned();
    fnamecleaned = QString(filepathcleaned);
+   clock_t setupModel_clock = clock();
+   printf("(%3.5lf seconds) in 3D mesh cleaner\n", ((float)setupModel_clock) / CLOCKS_PER_SEC);
 }
 
 void MainWindow::click()
