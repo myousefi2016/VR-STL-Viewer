@@ -103,6 +103,16 @@ struct vec3d
      }
 };
 
+namespace std {
+    template<> struct hash<vec3d>
+    {
+        std::size_t operator()(const vec3d& p) const
+        {
+            return p(p);
+        }
+    };
+}
+
 class triangle;
 
 class edge
@@ -153,8 +163,8 @@ public:
 
     size_t operator ()(const edge& e) const
     {
-        size_t h1 = std::hash<int>()(e.v1.id);
-        size_t h2 = std::hash<int>()(e.v2.id);
+        size_t h1 = std::hash<vec3d>()(e.v1);
+        size_t h2 = std::hash<vec3d>()(e.v2);
         return h1 ^ h2;
     }
 };
@@ -195,28 +205,14 @@ public:
 
     size_t operator ()(const triangle& t) const
     {
-        size_t h1 = std::hash<long double>()(t.points[0].x);
-        size_t h2 = std::hash<long double>()(t.points[0].y);
-        size_t h3 = std::hash<long double>()(t.points[0].z);
-        size_t h4 = std::hash<long double>()(t.points[1].x);
-        size_t h5 = std::hash<long double>()(t.points[1].y);
-        size_t h6 = std::hash<long double>()(t.points[1].z);
-        size_t h7 = std::hash<long double>()(t.points[2].x);
-        size_t h8 = std::hash<long double>()(t.points[2].y);
-        size_t h9 = std::hash<long double>()(t.points[2].z);
-        return ((h1 ^ (h2 << 1)) ^ h3) ^ ((h4 ^ (h5 << 1)) ^ h6) ^ ((h7 ^ (h8 << 1)) ^ h9);
+        size_t h1 = std::hash<vec3d>()(t.points[0]);
+        size_t h2 = std::hash<vec3d>()(t.points[1]);
+        size_t h3 = std::hash<vec3d>()(t.points[2]);
+        return h1 ^ h2 ^ h3;
     }
 };
 
 namespace std {
-    template<> struct hash<vec3d>
-    {
-        std::size_t operator()(const vec3d& p) const
-        {
-            return p(p);
-        }
-    };
-
     template<> struct hash<edge>
     {
         std::size_t operator()(const edge& e) const
