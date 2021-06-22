@@ -57,8 +57,8 @@ private:
     std::unordered_set<triangle> facets;
     std::unordered_set<vec3d> points;
     std::unordered_set<edge> edges;
-    const char* STLWriterDefaultHeader = "3D mesh cleaner generated SLA File";
-    const static int STLWriterBinaryHeaderSize = 68;
+    const char STLWriterDefaultHeader[81] = "3D mesh cleaner and VR STL viewer generated SLA File (Mehrdad Yousefi,June 2021)";
+    static const int STLWriterBinaryHeaderSize = 80;
 };
 
 #endif // MESH_H

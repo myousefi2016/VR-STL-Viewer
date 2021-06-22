@@ -25,35 +25,41 @@ void Mesh::writeSTLFile()
 
 void Mesh::writeBinarySTLFile()
 {
+    std::string s = filepath;
+    std::string delimiter = ".";
+    std::string token = s.substr(0, s.find(delimiter));
+    std::string filepathcleaned = token + "-cleaned.stl";
     FILE* fp;
     vec3d dn, v1, v2, v3;
     unsigned short ibuff2 = 0;
-    float n[3];
 
-    fp = fopen(filepath, "wb");
+    fp = fopen(filepathcleaned.c_str(), "wb");
 
     char binaryFileHeader[STLWriterBinaryHeaderSize + 1] = { 0 };
 
-    strncpy(binaryFileHeader, STLWriterDefaultHeader, STLWriterBinaryHeaderSize);
+    int numberOfValues = STLWriterBinaryHeaderSize;
+    memcpy(binaryFileHeader, STLWriterDefaultHeader, numberOfValues);
 
     fwrite(binaryFileHeader, 1, STLWriterBinaryHeaderSize, fp);
 
-    unsigned long numTris = facets.size();
+    unsigned long numTris = 0;
     fwrite(&numTris, 1, 4, fp);
 
+    numTris += facets.size();
     for (auto &tri : facets)
     {
         v1 = tri.points[0];
         v2 = tri.points[1];
         v3 = tri.points[2];
-
         dn = tri.normal;
+
+        float n[3];
         n[0] = (float)dn.x;
         n[1] = (float)dn.y;
         n[2] = (float)dn.z;
         vtkByteSwap::Swap4LE(n);
-        vtkByteSwap::Swap4LE(n+1);
-        vtkByteSwap::Swap4LE(n+2);
+        vtkByteSwap::Swap4LE(n + 1);
+        vtkByteSwap::Swap4LE(n + 2);
         fwrite(n, 4, 3, fp);
 
         n[0] = (float)v1.x;
@@ -96,10 +102,14 @@ void Mesh::writeBinarySTLFile()
 
 void Mesh::writeASCIISTLFile()
 {
+    std::string s = filepath;
+    std::string delimiter = ".";
+    std::string token = s.substr(0, s.find(delimiter));
+    std::string filepathcleaned = token + "-cleaned.stl";
     FILE* fp;
     vec3d n, v1, v2, v3;
 
-    fp = fopen(filepath, "w");
+    fp = fopen(filepathcleaned.c_str(), "w");
 
     fprintf(fp, "solid ");
     fprintf(fp, "%s", STLWriterDefaultHeader);
@@ -217,19 +227,19 @@ void Mesh::readBinarySTLFile()
 
     char unused_bytes[2];
 
-    long double temp_float_var;
+    float temp_float_var;
 
     int id = -1;
 
     for (int count = 0; count < numberOfTriangles; count++)
     {
-        binaryInputFile.read((char*)&temp_float_var, 4); tri.normal.x = (long double)temp_float_var;
-        binaryInputFile.read((char*)&temp_float_var, 4); tri.normal.y = (long double)temp_float_var;
-        binaryInputFile.read((char*)&temp_float_var, 4); tri.normal.z = (long double)temp_float_var;
+        binaryInputFile.read((char*)&temp_float_var, 4); tri.normal.x = (float)temp_float_var;
+        binaryInputFile.read((char*)&temp_float_var, 4); tri.normal.y = (float)temp_float_var;
+        binaryInputFile.read((char*)&temp_float_var, 4); tri.normal.z = (float)temp_float_var;
 
-        binaryInputFile.read((char*)&temp_float_var, 4); tri.points[0].x = (long double)temp_float_var;
-        binaryInputFile.read((char*)&temp_float_var, 4); tri.points[0].y = (long double)temp_float_var;
-        binaryInputFile.read((char*)&temp_float_var, 4); tri.points[0].z = (long double)temp_float_var;
+        binaryInputFile.read((char*)&temp_float_var, 4); tri.points[0].x = (float)temp_float_var;
+        binaryInputFile.read((char*)&temp_float_var, 4); tri.points[0].y = (float)temp_float_var;
+        binaryInputFile.read((char*)&temp_float_var, 4); tri.points[0].z = (float)temp_float_var;
 
         auto it = points.find(tri.points[0]);
         if (it != points.end())
@@ -244,9 +254,9 @@ void Mesh::readBinarySTLFile()
             points.insert(tri.points[0]);
         }
 
-        binaryInputFile.read((char*)&temp_float_var, 4); tri.points[1].x = (long double)temp_float_var;
-        binaryInputFile.read((char*)&temp_float_var, 4); tri.points[1].y = (long double)temp_float_var;
-        binaryInputFile.read((char*)&temp_float_var, 4); tri.points[1].z = (long double)temp_float_var;
+        binaryInputFile.read((char*)&temp_float_var, 4); tri.points[1].x = (float)temp_float_var;
+        binaryInputFile.read((char*)&temp_float_var, 4); tri.points[1].y = (float)temp_float_var;
+        binaryInputFile.read((char*)&temp_float_var, 4); tri.points[1].z = (float)temp_float_var;
 
         it = points.find(tri.points[1]);
         if (it != points.end())
@@ -261,9 +271,9 @@ void Mesh::readBinarySTLFile()
             points.insert(tri.points[1]);
         }
 
-        binaryInputFile.read((char*)&temp_float_var, 4); tri.points[2].x = (long double)temp_float_var;
-        binaryInputFile.read((char*)&temp_float_var, 4); tri.points[2].y = (long double)temp_float_var;
-        binaryInputFile.read((char*)&temp_float_var, 4); tri.points[2].z = (long double)temp_float_var;
+        binaryInputFile.read((char*)&temp_float_var, 4); tri.points[2].x = (float)temp_float_var;
+        binaryInputFile.read((char*)&temp_float_var, 4); tri.points[2].y = (float)temp_float_var;
+        binaryInputFile.read((char*)&temp_float_var, 4); tri.points[2].z = (float)temp_float_var;
 
         if (it != points.end())
         {

@@ -11,11 +11,11 @@
 
 struct vec3d
 {
-    long double x;
+    float x;
 
-    long double y;
+    float y;
 
-    long double z;
+    float z;
 
     mutable int id;
 
@@ -34,7 +34,7 @@ struct vec3d
          return *this;
      }
 
-     double operator * (const vec3d &s) const
+     float operator * (const vec3d &s) const
      {
          return (x*s.x+y*s.y+z*s.z);
      }
@@ -79,7 +79,7 @@ struct vec3d
          return r;
      }
 
-     vec3d operator / (const long double ratio) const
+     vec3d operator / (const float ratio) const
      {
          vec3d r;
          r.x = x / ratio;
@@ -88,17 +88,17 @@ struct vec3d
          return r;
      }
 
-     double magnitude() const
+     float magnitude() const
      {
-         double m = std::sqrt(x * x + y * y + z * z);
+         float m = std::sqrt(x * x + y * y + z * z);
          return m;
      }
 
      size_t operator ()(const vec3d &k) const 
      {
-         size_t h1 = std::hash<long double>()(k.x);
-         size_t h2 = std::hash<long double>()(k.y);
-         size_t h3 = std::hash<long double>()(k.z);
+         size_t h1 = std::hash<float>()(k.x);
+         size_t h2 = std::hash<float>()(k.y);
+         size_t h3 = std::hash<float>()(k.z);
          return (h1 ^ (h2 << 1)) ^ h3;
      }
 };
