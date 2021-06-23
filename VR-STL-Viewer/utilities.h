@@ -9,6 +9,14 @@
 
 #define assertm(exp, msg) assert(((void)msg, exp))
 
+struct hashTable 
+{
+    static const size_t HASH_TABLE_SIZE = 1000000;
+    static const size_t p1 = 73856093;
+    static const size_t p2 = 19349663;
+    static const size_t p3 = 83492791;
+};
+
 struct vec3d
 {
     float x;
@@ -99,7 +107,7 @@ struct vec3d
          size_t h1 = std::hash<float>()(k.x);
          size_t h2 = std::hash<float>()(k.y);
          size_t h3 = std::hash<float>()(k.z);
-         return (h1 ^ (h2 << 1)) ^ h3;
+         return ((h1 * hashTable::p1) ^ (h2 * hashTable::p2) ^ (h2 * hashTable::p3)) % hashTable::HASH_TABLE_SIZE;
      }
 };
 
