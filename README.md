@@ -16,20 +16,22 @@ If you don't want to build this code, you can use the binary pre-built install p
 
 ## Benchmark
 
-In order to observe how the mesh cleaner to remove the duplicate triangles, identify the flipped normals and non-manifold edges would be scaled by increasing the number of triangles in the 3D mesh, a benchmark for a 3D mesh of a turbine blade is done here, where its topology remained the same but the number of meshes are decimated from 1M to 100K and the runtime of 3D mesh cleaner part is measured in second and plotted here:
+In order to observe how the mesh cleaner to remove the duplicate triangles, identify the flipped normals and non-manifold edges would be scaled by increasing the number of triangles in the 3D mesh, a benchmark for a 3D mesh of a turbine blade is done here, where its topology remained the same but the number of meshes are decimated from 1.7M to 100K and the runtime of 3D mesh cleaner part is measured in second and plotted here:
 
-![benchmark](https://user-images.githubusercontent.com/22246708/122986708-c5e5cd80-d36d-11eb-9fde-6f92165a34c1.png)
+![benchmark](https://user-images.githubusercontent.com/22246708/123291512-2bf26200-d4e0-11eb-8cdc-4b2adab72405.png)
 
-| Number of Triangles |	Runtime (s) |
-| ---- | ---- |
-| 176519 | 12.588 |
-| 353062 | 20.633 |
-| 529606 |	78.559 |
-| 706148 | 286.66199 |
-| 882692 | 759.71002 |
-| 1059230 | 1208.44604 |
-
-We see that there is an exponential scaling of the runtime vs. the number of triangles in the 3D mesh due to increased number of collisions in the hash function defined in `utilities.h` for `triangle` and `edge` classes.
+| Number of Triangles |	Runtime (s) | Decimation (%) |
+| ---- | ---- | ---- |
+| 176519 | 11.44300 | 90 |
+| 353062 | 12.72900 | 80 |
+| 529606 | 11.96500 | 70 |
+| 706148 | 13.45300 | 60 |
+| 882692 | 16.23100 | 50 |
+| 1059230 | 22.90900 | 40 |
+| 1235769 | 21.43700 | 30 |
+| 1412310 | 22.91600 | 20 |
+| 1588848 | 27.86000 | 10 |
+| 1765388 | 31.75200 | 0 |
 
 ## VR Viewer in *action*
 
