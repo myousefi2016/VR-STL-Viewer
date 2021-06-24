@@ -5,6 +5,7 @@
 #include <string>
 #include <fstream>
 #include <vector>
+#include <set>
 #include <unordered_set>
 #include <cmath>
 #include "utilities.h"
@@ -44,7 +45,7 @@ public:
 
     std::unordered_set<edge> GetEdges()
     {
-        return edges;
+        return uniqEdges;
     }
 
     void readSTLFile();
@@ -62,7 +63,8 @@ private:
     std::string STL_filetype;
     std::unordered_set<triangle> facets;
     std::unordered_set<vec3d> points;
-    std::unordered_set<edge> edges;
+    std::set<edge> edges;
+    std::unordered_set<edge> uniqEdges;
     const char STLWriterDefaultHeader[81] = "3D mesh cleaner and VR STL viewer generated SLA File (Mehrdad Yousefi,June 2021)";
     static const int STLWriterBinaryHeaderSize = 80;
 };

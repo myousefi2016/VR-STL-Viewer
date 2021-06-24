@@ -202,9 +202,11 @@ void Mesh::readSTLFile()
         std::cout << "ERROR: Unable to find out whether the STL file is ascii or binary" << std::endl;
     }
 
-    std::cout << "The number of triangles in the STL file = " << facets.size() << std::endl;
-
     this->createEdgesArray();
+
+    std::cout << "The number of triangles in the 3D mesh = " << facets.size() << std::endl;
+    std::cout << "The number of points in the 3D mesh = " << points.size() << std::endl;
+    std::cout << "The number of edges in the 3D mesh = " << uniqEdges.size() << std::endl;
 }
 
 void Mesh::readBinarySTLFile()
@@ -277,6 +279,7 @@ void Mesh::readBinarySTLFile()
         binaryInputFile.read((char*)&temp_float_var, 4); tri.points[2].y = (float)temp_float_var;
         binaryInputFile.read((char*)&temp_float_var, 4); tri.points[2].z = (float)temp_float_var;
 
+        it = points.find(tri.points[2]);
         if (it != points.end())
         {
             foundPoint = *it;
@@ -395,7 +398,7 @@ void Mesh::readASCIISTLFile()
 
 void Mesh::createEdgesArray()
 {
-    std::unordered_set<edge>::iterator edgeIt;
+    std::set<edge>::iterator edgeIt;
 
     for (auto& tri : facets)
     {
@@ -450,12 +453,14 @@ void Mesh::createEdgesArray()
             edges.insert(tri.edges[2]);
         }
     }
+
+    uniqEdges = std::unordered_set<edge>(begin(edges), end(edges));
 }
 
 bool Mesh::findNonManifoldEdges()
 {
     int total=0;
-    for(auto &e : edges)
+    for(auto &e : uniqEdges)
     {
         if (e.fIds.size() != 2)
         {
@@ -480,7 +485,7 @@ bool Mesh::findFlippedTriangles()
     edge ePairs[2];
     std::unordered_set<triangle>::iterator iterator;
 
-    for(auto & e : edges)
+    for(auto & e : uniqEdges)
     {
         if (e.fIds.size() == 2)
         {

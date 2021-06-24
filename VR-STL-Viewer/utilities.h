@@ -1,11 +1,13 @@
 #ifndef UTILITIES_H
 #define UTILITIES_H
 
-#include<vector>
+#include <vector>
 #include <algorithm>
 #include <cmath>
 #include <iostream>
 #include <cassert>
+#include <tuple>
+
 
 #define assertm(exp, msg) assert(((void)msg, exp))
 
@@ -96,6 +98,11 @@ struct vec3d
          return r;
      }
 
+     void operator << (const vec3d& s) const
+     {
+         std::cout << s.x << "," << s.y << "," << s.z << std::endl;
+     }
+
      float magnitude() const
      {
          float m = std::sqrt(x * x + y * y + z * z);
@@ -159,6 +166,21 @@ public:
     {
         if (((v1 == e.v1) && (v2 == e.v2)) || ((v1 == e.v2) && (v2 == e.v1))) return true;
         return false;
+    }
+
+    bool operator < (const edge& e) const
+    {
+        if (!(*this == e))
+        {
+            std::tuple<int, int> lhs = std::make_tuple(v1.id, v2.id);
+            std::tuple<int, int> rhs = std::make_tuple(e.v1.id, e.v2.id);
+
+            return lhs < rhs;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     edge& operator = (const edge& e)
